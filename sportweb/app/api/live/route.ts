@@ -86,22 +86,6 @@ const MLB_NL_TEAMS = new Set([
   "San Francisco Giants",
 ]);
 
-function formatKoreanDateTime(value?: string) {
-  if (!value) return "-";
-
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "-";
-
-  return new Intl.DateTimeFormat("ko-KR", {
-    month: "numeric",
-    day: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-    timeZone: "Asia/Seoul",
-  }).format(date);
-}
-
 function getDateListInSeoul(pastDays = 1, futureDays = 1) {
   const now = new Date();
   const result: string[] = [];
@@ -370,7 +354,6 @@ function sortGames(games: Game[]) {
     const tb = new Date(b.scheduledAt ?? 0).getTime();
 
     if (ta !== tb) return ta - tb;
-
     return a.league.localeCompare(b.league);
   });
 }
